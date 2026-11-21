@@ -30,30 +30,30 @@ html,body{height:100%;background:#000;overflow:hidden;cursor:none;font-family:In
 <div id="tag"></div>
 <script>
 {
-const FL=[1,2,3,4,5,6,7,8,9].map(n=>'f'+n+'.jpg'), BGC=['#690f19','#111','#111','#111','#111','#111','#111','#111','#111'], SEC=15, SCREENS=4, N=FL.length;
+const FIX='f1.jpg', FL=[1,2,3,4,5,6,7,8].map(n=>'p'+n+'.jpg'), SEC=15, SCREENS=3, N=FL.length;
 const pick=document.getElementById('pick'), tag=document.getElementById('tag');
 const L=[document.getElementById('A'),document.getElementById('B')];
-let tv=0, cur=-1, front=0, timer=null;
+let tv=0, cur=-99, front=0, timer=null;
 const pre=FL.map(s=>{const i=new Image();i.src=s;return i});
 const save=v=>{try{localStorage.setItem('bateTV',v)}catch(e){}};
 const load=()=>{try{return +localStorage.getItem('bateTV')||0}catch(e){return 0}};
-const idx=slot=>((slot*SCREENS+tv-1)%N+N)%N;
+const idx=slot=>((slot*SCREENS+tv-2)%N+N)%N;
 function show(i){
   if(i===cur)return; cur=i;
-  const nx=L[1-front], im=new Image();
-  const go=()=>{nx.style.backgroundImage='url('+FL[i]+')';nx.style.backgroundColor=BGC[i];nx.classList.add('on');L[front].classList.remove('on');front=1-front};
-  im.onload=go; im.onerror=go; im.src=FL[i];
+  const nx=L[1-front], im=new Image(), src=i<0?FIX:FL[i];
+  const go=()=>{nx.style.backgroundImage='url('+src+')';nx.style.backgroundColor=(i<0?'#690f19':'#111');nx.classList.add('on');L[front].classList.remove('on');front=1-front};
+  im.onload=go; im.onerror=go; im.src=src;
 }
 function tick(){
   const now=Date.now(), slot=Math.floor(now/1000/SEC);
-  show(idx(slot));
+  show(tv===1?-1:idx(slot));
   clearTimeout(timer); timer=setTimeout(tick, SEC*1000-(now%(SEC*1000))+30);
 }
 function start(n){
   tv=n; save(n); pick.style.display='none';
   if(location.hash!=='#tv'+n) history.replaceState(null,'','#tv'+n);
   tag.textContent='TV '+n; tag.classList.add('on'); setTimeout(()=>tag.classList.remove('on'),3000);
-  cur=-1; tick();
+  cur=-99; tick();
 }
 function choose(){
   clearTimeout(timer); L.forEach(l=>l.classList.remove('on'));
