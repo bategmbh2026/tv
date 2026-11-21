@@ -11,11 +11,11 @@
 :root{color-scheme:dark}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%;background:#000;overflow:hidden;cursor:none;font-family:Inter,system-ui,sans-serif;color:#fff}
-.layer{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.layer{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;overflow:hidden;opacity:0;transition:opacity 1.2s ease}
 .layer.on{opacity:1}
-.bg{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;image-rendering:auto}
-.fl{position:absolute;top:2.5vh;bottom:2.5vh;left:50%;transform:translateX(-50%);height:95vh;width:auto;max-width:96vw;object-fit:contain;border-radius:1vh;box-shadow:0 2vh 6vh rgba(0,0,0,.7),0 0 0 .25vh rgba(255,255,255,.12)}
-#pick{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:5vh;background:#111;cursor:default}
+.bg{position:absolute;top:-4%;left:-4%;width:108%;height:108%;object-fit:cover;image-rendering:auto}
+.fl{position:absolute;top:2.5%;height:95%;left:0;right:0;margin:0 auto;width:auto;max-width:96%;display:block;border-radius:1vh;box-shadow:0 2vh 6vh rgba(0,0,0,.7),0 0 0 .25vh rgba(255,255,255,.12)}
+#pick{position:absolute;top:0;left:0;right:0;bottom:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:5vh;background:#111;cursor:default}
 #pick h1{font-size:5vh;font-weight:700}
 #pick p{font-size:2.4vh;opacity:.7;text-align:center;max-width:70vw}
 #pick .row{display:flex;gap:3vw}
